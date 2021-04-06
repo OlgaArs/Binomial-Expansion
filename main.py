@@ -1,28 +1,15 @@
-def parse(expr):
-    expr = expr.replace('(', '')
-    expr = expr.replace(')^', ' ')
-    expr = expr.replace('+', ' +')
-    expr = expr.replace('-', ' -')
-    expr = expr.replace('*', ' *')
-    expr = expr.replace('/', ' /')
-
-    expr = expr.split(' ')
-    expr = [elem for elem in expr if elem != '']
-    expr.insert(1, expr[0][-1])
-    expr[0] = (1 if expr[0][:-1] == '' else (-1 if expr[0][:-1] == '-' else expr[0][:-1]))
-
-    return expr
-
-
 def expand(expr):
     from math import factorial
-    a, x, b, n = parse(expr)
+    from re import compile
+
+    P = compile(r'\((-?\d*)(\w)\+?(-?\d+)\)\^(\d+)')
+    a, x, b, n = P.findall(expr)[0]
+
     if n == '0':
         return '1'
     elif n == '1':
-        return (a if a != 1 else '') + x + b
-
-    a = int(a)
+        return a + x + ('+' if b[0] != '-' else '') + b
+    a = -1 if a == '-' else (1 if a == '' else int(a))
     b = int(b)
     n = int(n)
 
