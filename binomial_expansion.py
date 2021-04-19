@@ -1,4 +1,4 @@
-def expand(expr):
+def expand(expr: str) -> str:
     from math import factorial
     from re import compile
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     assert expand("(x-1)^1") == "x-1"
     assert expand("(x-1)^2") == "x^2-2x+1"
 
-    assert expand("(5m+3)^4") == "625m^4+1500m^3+1350m^2+540m+81"
+    assert expand( "(5m+3)^4")== "625m^4+1500m^3+1350m^2+540m+81"
     assert expand("(2x-3)^3") == "8x^3-36x^2+54x-27"
     assert expand("(7x-7)^0") == "1"
 
